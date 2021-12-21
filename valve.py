@@ -48,14 +48,14 @@ class Valve:
         self.state = State.CLOSED
 
     def auto_close(self):
-        #while(self.state != State.CLOSED):
-        #self.status()
-        if time.time() > (self.timer + self.openTime):
-            print("Timer expired, closing valve")
-            self.close()
+        while(self.state != State.CLOSED):
             self.status()
-        #time.sleep(0.5)
-        sys.stdout.flush()
+            if time.time() > (self.timer + self.openTime):
+                print("Timer expired, closing valve")
+                self.close()
+                self.status()
+            time.sleep(0.5)
+            sys.stdout.flush()
 
     def status(self):
         print("Valve state: {}".format(self.state))
@@ -95,6 +95,7 @@ def main():
     v.keep_open(11)
     #v.status()
     thr.join()
+    time.sleep(12)
 
 
 if __name__ == '__main__':
